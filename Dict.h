@@ -1,28 +1,18 @@
 #ifndef DICT_H
 #define DICT_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <string>
+#include <stdexcept>
 
-#define MAX_KEY_LENGTH 100
-
-typedef struct dict_entry {
-    char key[MAX_KEY_LENGTH];
-    void* value;
-    struct dict_entry* next;
-} DictEntry;
-
-typedef struct {
-    DictEntry* head;
-    int size;
-} Dict;
-
-void dict_init(Dict* dict);
-void dict_insert(Dict* dict, const char* key, void* value);
-void* dict_search(Dict* dict, const char* key);
-void* dict_remove(Dict* dict, const char* key);
-int dict_entries(Dict* dict);
+template <typename V>
+class Dict {
+public:
+    virtual void insert(std::string key, V value) = 0;
+    virtual V search(std::string key) = 0;
+    virtual V remove(std::string key) = 0;
+    virtual int entries() = 0;
+    virtual ~Dict() {}
+};
 
 #endif
 
